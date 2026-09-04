@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
   Activity, Award, CalendarDays, CheckCircle2, ChevronLeft, CreditCard, FileText,
   Home, IdCard, Menu, MessageSquareText, ShieldCheck, Target, UserRound, UsersRound, X,
+  Sparkles,
   type LucideIcon,
 } from 'lucide-react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
@@ -14,9 +15,10 @@ import '../styles/portal-shell.css';
 type PortalKind = 'player' | 'parent' | 'coach';
 type PortalNavItem = { path: string; label: BilingualValue; icon: LucideIcon };
 
-const portalMeta: Record<PortalKind, { title: BilingualValue; role: BilingualValue; nav: PortalNavItem[] }> = {
+const portalMeta: Record<PortalKind, { title: BilingualValue; role: BilingualValue; nav: PortalNavItem[]; accent: BilingualValue }> = {
   player: {
     title: bi('Player Portal', 'بوابة اللاعب'), role: bi('Athlete Workspace', 'مساحة اللاعب'),
+    accent: bi('Train · Track · Triumph', 'درّب · تتبع · تفوّق'),
     nav: [
       { path: '', label: bi('Overview', 'نظرة عامة'), icon: Home },
       { path: 'schedule', label: bi('Schedule', 'الجدول'), icon: CalendarDays },
@@ -30,6 +32,7 @@ const portalMeta: Record<PortalKind, { title: BilingualValue; role: BilingualVal
   },
   parent: {
     title: bi('Parent Portal', 'بوابة ولي الأمر'), role: bi('Family Workspace', 'مساحة الأسرة'),
+    accent: bi('Family · Focus · Future', 'أسرة · تركيز · مستقبل'),
     nav: [
       { path: '', label: bi('Overview', 'نظرة عامة'), icon: Home },
       { path: 'children', label: bi('Children', 'الأبناء'), icon: UsersRound },
@@ -45,6 +48,7 @@ const portalMeta: Record<PortalKind, { title: BilingualValue; role: BilingualVal
   },
   coach: {
     title: bi('Coach Portal', 'بوابة المدرب'), role: bi('Training Workspace', 'مساحة التدريب'),
+    accent: bi('Guide · Grow · Glorify', 'وجّه · نمِّ · مجِّد'),
     nav: [
       { path: '', label: bi('Overview', 'نظرة عامة'), icon: Home },
       { path: 'schedule', label: bi('Schedule', 'الجدول'), icon: CalendarDays },
@@ -84,7 +88,11 @@ export function PortalLayout({ portal, children }: { portal: PortalKind; childre
         <div><strong>United Olympics Sports</strong><span lang="ar" dir="rtl">يونايتد أوليمبيكس سبورت</span></div>
         <button type="button" onClick={() => setOpen(false)} className="portal-icon-button portal-mobile-only" aria-label="Close navigation | إغلاق القائمة"><X /></button>
       </div>
-      <div className="portal-role"><small><BilingualText value={bi('Preview Product', 'منتج تجريبي')} /></small><BilingualText value={meta.title} /><span><BilingualText value={meta.role} /></span></div>
+      <div className="portal-role">
+        <small><BilingualText value={bi('Preview Product', 'منتج تجريبي')} /></small>
+        <BilingualText value={meta.title} />
+        <span><BilingualText value={meta.role} /></span>
+      </div>
       <nav className="portal-nav">{meta.nav.map(({ path, label, icon: Icon }) => <NavLink key={path || 'overview'} to={path ? `${base}/${path}` : base} end={!path}><Icon /><BilingualText value={label} /><ChevronLeft /></NavLink>)}</nav>
       <Link className="portal-public-link" to="/"><ChevronLeft /><BilingualText value={bi('Public Website', 'الموقع العام')} /></Link>
     </aside>
@@ -92,11 +100,14 @@ export function PortalLayout({ portal, children }: { portal: PortalKind; childre
     <section className="portal-workspace">
       <header className="portal-topbar">
         <button type="button" className="portal-icon-button portal-mobile-only" onClick={() => setOpen(true)} aria-label="Open navigation | فتح القائمة"><Menu /></button>
-        <div><small><BilingualText value={meta.title} /></small><strong><BilingualText value={current.label} /></strong></div>
+        <div>
+          <small><BilingualText value={meta.title} /></small>
+          <strong><BilingualText value={current.label} /></strong>
+        </div>
         <span className="portal-preview-badge"><span /><BilingualText value={bi('Preview Data', 'بيانات تجريبية')} /></span>
         <ThemeToggle compact />
       </header>
-      <main className="portal-main">{children}</main>
+      <main className="portal-main" key={location.pathname}>{children}</main>
     </section>
   </div>;
 }
