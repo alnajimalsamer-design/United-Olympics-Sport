@@ -10,6 +10,7 @@ import { BilingualText, bi } from '../components/bilingual/BilingualText';
 import { ThemeToggle } from '../components/ui/ThemeToggle';
 import type { BilingualText as BilingualValue } from '../domain/contracts';
 import '../styles/admin.css';
+import '../styles/portal-shell.css';
 
 type PortalKind = 'player' | 'parent' | 'coach';
 type PortalNavItem = { path: string; label: BilingualValue; icon: LucideIcon };

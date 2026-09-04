@@ -1,0 +1,21 @@
+{
+  "short_name": "UOS Portal",
+  "name": "United Olympics Sports | يونايتد أوليمبيكس سبورت",
+  "icons": [
+    {
+      "src": "/public/brand/united-olympics-sports-logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/brand/united-olympics-sports-logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#05070a",
+  "theme_color": "#0a0f1d",
+  "display": "standalone",
+  "orientation": "portrait"
+}
