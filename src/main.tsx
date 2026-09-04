@@ -4,6 +4,7 @@ import App from './App.tsx';
 import './index.css';
 import './styles/visual-system.css';
 import './styles/theme-closure.css';
+import './styles/portal-shell.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
